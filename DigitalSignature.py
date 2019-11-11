@@ -17,6 +17,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
 import os
+import smtplib
 win=tk.Tk()
 win.minsize(500,500)
 win.resizable(0,0)
@@ -25,6 +26,10 @@ PrimaryKeyDecryption=tk.StringVar()
 encriptedtxt=b''
 salt=b''
 win.title("Digital Signature")
+user_name=tk.StringVar()
+email_password=tk.StringVar()
+sent_to=tk.StringVar()
+smtpobj=''
 def Reader(file):
     try:
             with open(file) as f:
@@ -71,7 +76,41 @@ def openfile():
     
     
 def sent():
-    pass
+    global smtpobj
+    smtpobj=smtplib.SMTP("smtp.gmail.com",587)
+    smtpobj.ehlo()
+    smtpobj.starttls()
+    tabcontrol.select(3)
+    
+    label_username=ttk.Label(tab5,text="Email Username")
+    label_username.grid(column=0,row=1)
+    label_username.place(x=150,y=100)
+    entry_username=ttk.Entry(tab5,textvariable=user_name)
+    entry_username.grid(column=0,row=2)
+    entry_username.place(x=150,y=120)
+    label_password=ttk.Label(tab5,text="Email password")
+    label_password.grid(column=0,row=3)
+    label_password.place(x=150,y=160)
+    email_pass=ttk.Entry(tab5,textvariable=email_password)
+    email_pass.grid(column=0,row=4)
+    email_pass.place(x=150,y=180)
+    label_to=ttk.Label(tab5,text="sent message to")
+    label_to.grid(column=0,row=5)
+    label_to.place(x=150,y=220)
+    sent_to_acc=ttk.Entry(tab5,textvariable=sent_to)
+    sent_to_acc.grid(column=0,row=6)
+    sent_to_acc.place(x=150,y=240)
+    email_sent_btn=ttk.Button(tab5,text="send",command=send)
+    email_sent_btn.grid(column=3,row=7)
+    email_sent_btn.place(x=160,y=280)
+def send():
+        try:
+            smtpobj.login(f"{user_name.get()}",f"{email_password.get()}")
+            smtpobj.sendmail(f"{user_name.get()}",f"{sent_to.get()}",f"Subject:{encriptedtxt.decode()}")
+            smtpobj.close()
+            mb.showinfo("Sent","Message sent succesfully")
+        except:
+            mb.showinfo("Error","Incorrect username or password")
 def Decrypt():
     try:
             scrolltxt_d.delete("1.0",tk.END)
@@ -100,10 +139,12 @@ tab1=ttk.Frame(tabcontrol)
 tab2=ttk.Frame(tabcontrol)
 tab3=ttk.Frame(tabcontrol)
 tab4=ttk.Frame(tabcontrol)
+tab5=ttk.Frame(tabcontrol)
 tabcontrol.add(tab1,text="Choose File")
 tabcontrol.add(tab2,text="Encrypted File")
 ##tabcontrol.add(tab3,text="Original File")
 tabcontrol.add(tab4,text="Decrypt File")
+tabcontrol.add(tab5,text="Fill Account")
 tabcontrol.pack(expand=1,fill="both")
 
 label1=ttk.Label(tab1,text="Enter your preffered public key",font=("Helvetica", 12, "bold"))
@@ -145,4 +186,6 @@ btn_d=ttk.Button(tab4,text="Decrypt",command=Decrypt)
 btn_d.grid(column=0,row=3,padx=20)
 btn_d.place(x=400,y=450)
 win.mainloop()
+
+
 
