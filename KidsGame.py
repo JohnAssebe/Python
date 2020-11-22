@@ -1,14 +1,17 @@
 '''
 @Author:Yohannes Assebe(John Assebe)
 written @ 4:25 PM 3/6/2020
-A kids game by level to practice math 
+A kids game by level to practice math
+press Enter or Button to check your answer 
 '''
+
 from tkinter import *
 from tkinter import messagebox as mBox
 import random as ra
 import threading 
 import time
 import sys
+#the class that init the Game
 class Win1:
     def __init__(self,root):
         self.root=root
@@ -16,17 +19,21 @@ class Win1:
         time_thread.start()
         score_label=Label(self.root,text="Score:"+str(score),font="Verdana 30 bold").grid(column=3,row=0)
         self.level_selector()
-        entry=Entry(self.root,textvariable=question,state="disabled",font="Verdana 30 bold")
+        entry=Entry(self.root,textvariable=question,state="disabled",font="Verdana 30 bold",fg="green")
         entry.grid(column=0,row=1,padx=10,pady=10,columnspan=5)
         answer_entry=Entry(self.root,textvariable=answer,font="Verdana 30 bold")
+        answer_entry.bind('<Return>',self.onEnter)
+        
+        
         answer_entry.grid(column=0,row=2,padx=10,pady=10,columnspan=5)
-        answer.set("              ")
-##        answer_entry.icursor(100)
         answer_entry.focus()
+        answer.set("              ")
         self.btn=Button(self.root,text="Answer",command=self.check_answer,font="Arial 20 bold")
         self.btn.grid(column=1,row=3)
+    def onEnter(self,*args):
+        self.check_answer()
         
-    
+    #selects other Window if Game is over
     def window_chooser(self,_class):
         try:
             if self.new.state=='normal':
@@ -35,6 +42,7 @@ class Win1:
             self.root.withdraw()
             self.new=Toplevel(self.root)
             _class(self.new)
+    # display the remaining time
     def remain_time(self):
         global t
         while t>-1:
@@ -44,12 +52,12 @@ class Win1:
             time.sleep(1)
             remain=str(h).zfill(2)+":"+str(m).zfill(2)+":"+str(s).zfill(2)
             label=Label(self.root,text=remain,font="Verdana 30 bold").grid(column=0,row=0)
-            #print(eval(remain[0:2]+remain[3:5]+remain[6:8]))
             if remain=="00:00:00":
                 self.window_chooser(Win2)
 
     
-
+    # check the answer is  right or not,increment score by one if right 
+    #and set the button green if the answer is right or red if the answer is wrong
     def check_answer(self):
         real_answer=eval(question.get())
         try:
@@ -63,13 +71,13 @@ class Win1:
                 self.level_selector()
                 
             else:
-                self.btn.configure(foreground='red')
+                self.btn.configure(fg='red')
                 #Label(self.root,text="Score:"+str(score),font="Verdana 30 bold").grid(column=3,row=0)
            
             answer.set("              ")
         except ValueError:
             answer.set("              ")
-            
+  #generate a random question based on level 
     def random_question_generator(self,level='easy',start=1,end=50,oper_strt=0,oper_end=1):
         if level=='easy':
             num1=ra.randint(start,end)
@@ -77,7 +85,8 @@ class Win1:
             operatorRand=ra.randint(oper_strt,oper_end)
             operations=(["+","-","*","/"])
             return "             "+str(num1)+operations[operatorRand]+str(num2)
-        elif level=='midium':
+        #when the level reaches medium it will generate three numbers 
+        elif level=='medium':
             global t
             t=30
             num1=ra.randint(start,end)
@@ -89,7 +98,7 @@ class Win1:
             
             
             
-        
+    #selects the level based on the score 
     def level_selector(self):
         global score
         if score<5:
@@ -118,22 +127,22 @@ class Win1:
                      question.set(question_generated)
                      break
         if score>=30:
-            question_generated=self.random_question_generator(level='midium',start=50,end=101)
+            question_generated=self.random_question_generator(level='medium',start=50,end=101)
             question.set(question_generated)
             
-                        
-        
+#the second window   
 class Win2:
     def __init__(self,root):
         self.root=root
         self.root.minsize(width=400,height=300)
         self.root.resizable(0,0)
         global score
-        self.label=Label(self.root,text="Your Score:"+str(score),font="Verdana 30 bold").grid(column=0,row=0,pady=100,padx=40)
+        self.label=Label(self.root,text="Your Score:"+str(score),font="Verdana 30 bold",justify='center').grid(column=0,row=0,pady=5,padx=50)
+        self.label=Label(self.root,text="Author: Yohannes Assebe(John)",font="Verdana 5",justify='center').grid(column=0,row=2,pady=50,padx=40)
         self.btn=Button(self.root,text="Continue",command=self.continue_game,font="Arial 20 bold")
-        self.btn.grid(column=0,row=2,padx=10,pady=10)
-        self.btn2=Button(self.root,text="Cancel",command=self.cancel_game,font="Arial 20 bold",justify='center')
-        self.btn2.grid(column=1,row=2,padx=10,pady=10)
+        self.btn.grid(column=0,row=3,padx=0,pady=10)
+        self.btn2=Button(self.root,text="Cancel",command=self.cancel_game,font="Arial 20 bold")
+        self.btn2.grid(column=1,row=3,padx=10,pady=10)
     def window_chooser(self,_class):
         try:
             if self.new.state=='normal':
