@@ -1,0 +1,6 @@
+ImmutableMultiDict([('phrase', 'Yohannes Assebe'), ('letters', 'aeiou')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36|{'o', 'a', 'e'}
+ImmutableMultiDict([('phrase', 'Hallelujah'), ('letters', 'Abel')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36|{'e', 'l'}
+ImmutableMultiDict([('phrase', 'Geta Eyesus bcha new'), ('letters', 'manm esun ayaklm')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36|{'e', 'a', 'n', 'u', ' ', 's', 'y'}
+ImmutableMultiDict([('phrase', "response don't see me css  "), ('letters', 'aeiou')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36|{'o', 'e'}
+ImmutableMultiDict([('phrase', 'Dont say me that '), ('letters', 'aeiou')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36|{'a', 'o', 'e'}
+ImmutableMultiDict([('phrase', 'Dont say me that '), ('letters', 'aeiou')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36|{'o', 'a', 'e'}

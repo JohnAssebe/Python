@@ -1,0 +1,1 @@
+copy paste the image you want to have a logo in the parent folder and run the code 

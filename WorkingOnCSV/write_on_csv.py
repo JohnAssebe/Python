@@ -1,0 +1,16 @@
+import csv,subprocess
+file=open('example.csv','w',newline='')
+file_writer=csv.writer(file)
+##file_writer=csv.writer(file,delimiter='\t',lineterminator='\n\n')
+file_writer.writerow(['1','2','3'])
+file_writer.writerow(['4/5/2014 13:34', 'Apples', '73'])
+file_writer.writerow(['4/5/2014 3:41', 'Cherries', '85'])
+file_writer.writerow(['4/6/2014 12:46', 'Pears', '14'])
+file_writer.writerow(['4/8/2014 8:59', 'Oranges', '52'])
+file_writer.writerow(['4/10/2014 2:07', 'Apples', '152'])
+file_writer.writerow(['4/10/2014 18:10', 'Bananas', '23'])
+file_writer.writerow(['4/10/2014 2:40', 'Strawberries', '98'])
+print('done')
+file.close()
+subprocess.Popen(['start','example.csv'],shell=True)
+
