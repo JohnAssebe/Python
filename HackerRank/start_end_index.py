@@ -7,6 +7,8 @@ if(re.search(pattern,string[index:])):
         start=re.search(pattern,string[index:]).start()+index
         index+=re.search(pattern,string[index:]).end()-1
         print((start,index))
+        if start==index:
+            index+=1
 else:
     print((-1,-1))
-    
+  
