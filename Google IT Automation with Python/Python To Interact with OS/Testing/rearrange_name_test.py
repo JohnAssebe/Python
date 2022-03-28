@@ -8,4 +8,8 @@ class TestRearrange_name(unittest.TestCase):
         testcase="John, Assebe"
         expected="Assebe John"
         self.assertEqual(rearrange_name(testcase),expected)
+    def testempty(self):
+        testcase=""
+        expected=""
+        self.assertEqual(rearrange_name(testcase),expected)
 unittest.main()
